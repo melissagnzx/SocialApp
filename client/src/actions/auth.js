@@ -10,7 +10,6 @@ import {
   LOGOUT,
   CLEAR_PROFILE
 } from "./types";
-import { set } from "mongoose";
 import setAuthToken from "../utils/setAuthToken";
 
 //Load user

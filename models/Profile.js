@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+
 const ProfileSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
@@ -7,9 +8,11 @@ const ProfileSchema = new mongoose.Schema({
   company: {
     type: String
   },
+  website: {
+    type: String
+  },
   location: {
-    type: String,
-    required: true
+    type: String
   },
   status: {
     type: String,
