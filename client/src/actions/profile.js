@@ -1,20 +1,25 @@
 import axios from "axios";
 import { setAlert } from "./alert";
+
 import {
   GET_PROFILE,
+  GET_PROFILES,
   PROFILE_ERROR,
   UPDATE_PROFILE,
-  ACCOUNT_DELETED,
   CLEAR_PROFILE,
-  GET_PROFILES,
+  ACCOUNT_DELETED,
   GET_REPOS
 } from "./types";
 
-//Get current user's profile
+// Get current users profile
 export const getCurrentProfile = () => async dispatch => {
   try {
     const res = await axios.get("/api/profile/me");
-    dispatch({ type: GET_PROFILE, payload: res.data });
+
+    dispatch({
+      type: GET_PROFILE,
+      payload: res.data
+    });
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
@@ -23,12 +28,17 @@ export const getCurrentProfile = () => async dispatch => {
   }
 };
 
-//Get all profiles
+// Get all profiles
 export const getProfiles = () => async dispatch => {
   dispatch({ type: CLEAR_PROFILE });
+
   try {
     const res = await axios.get("/api/profile");
-    dispatch({ type: GET_PROFILES, payload: res.data });
+
+    dispatch({
+      type: GET_PROFILES,
+      payload: res.data
+    });
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
@@ -37,11 +47,15 @@ export const getProfiles = () => async dispatch => {
   }
 };
 
-//Get profile by ID
-export const getProfileByID = userID => async dispatch => {
+// Get profile by ID
+export const getProfileById = userId => async dispatch => {
   try {
-    const res = await axios.get(`/api/profile/user/${userID}`);
-    dispatch({ type: GET_REPOS, payload: res.data });
+    const res = await axios.get(`/api/profile/user/${userId}`);
+
+    dispatch({
+      type: GET_PROFILE,
+      payload: res.data
+    });
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
@@ -50,12 +64,15 @@ export const getProfileByID = userID => async dispatch => {
   }
 };
 
-//Get Github repos
+// Get Github repos
 export const getGithubRepos = username => async dispatch => {
   try {
     const res = await axios.get(`/api/profile/github/${username}`);
 
-    dispatch({ type: GET_PROFILE, payload: res.data });
+    dispatch({
+      type: GET_REPOS,
+      payload: res.data
+    });
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
@@ -63,6 +80,7 @@ export const getGithubRepos = username => async dispatch => {
     });
   }
 };
+
 // Create or update profile
 export const createProfile = (
   formData,
@@ -102,7 +120,7 @@ export const createProfile = (
   }
 };
 
-//Add experience
+// Add Experience
 export const addExperience = (formData, history) => async dispatch => {
   try {
     const config = {
@@ -135,7 +153,7 @@ export const addExperience = (formData, history) => async dispatch => {
   }
 };
 
-//Add education
+// Add Education
 export const addEducation = (formData, history) => async dispatch => {
   try {
     const config = {
@@ -167,7 +185,8 @@ export const addEducation = (formData, history) => async dispatch => {
     });
   }
 };
-//Delete Experience
+
+// Delete experience
 export const deleteExperience = id => async dispatch => {
   try {
     const res = await axios.delete(`/api/profile/experience/${id}`);
@@ -186,10 +205,11 @@ export const deleteExperience = id => async dispatch => {
   }
 };
 
-//Delete Educaiton
+// Delete education
 export const deleteEducation = id => async dispatch => {
   try {
     const res = await axios.delete(`/api/profile/education/${id}`);
+
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data
@@ -204,7 +224,7 @@ export const deleteEducation = id => async dispatch => {
   }
 };
 
-//Delete account & profile
+// Delete account & profile
 export const deleteAccount = () => async dispatch => {
   if (window.confirm("Are you sure? This can NOT be undone!")) {
     try {
