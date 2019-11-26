@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
 import { connect } from "react-redux";
+import { addLike, removeLike, deletePost } from "../../actions/post";
+
 const PostItem = ({
   addLike,
   removeLike,
@@ -41,7 +43,7 @@ const PostItem = ({
           >
             <i className="fas fa-thumbs-down" />
           </button>
-          <Link to={`/posts/${_id}`} className="btn btn-primary">
+          <Link to={`/post/${_id}`} className="btn btn-primary">
             Discussion{" "}
             {comments.length > 0 && (
               <span className="comment-count">{comments.length}</span>
@@ -61,6 +63,10 @@ const PostItem = ({
     </div>
   </div>
 );
+
+PostItem.defaultProps = {
+  showActions: true
+};
 
 PostItem.propTypes = {
   post: PropTypes.object.isRequired,
