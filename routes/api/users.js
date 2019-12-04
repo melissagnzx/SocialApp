@@ -7,6 +7,8 @@ const config = require("config");
 const { check, validationResult } = require("express-validator");
 const User = require("../../models/User");
 
+//Handle user routes
+
 //@route   POST api/users
 //@desc    Resgister a user
 //@access  Public
@@ -17,7 +19,9 @@ router.post(
       .not()
       .isEmpty(),
     check("email", "Please provide valid email").isEmail(),
-    check("password", "Please enter a password 6 or more characters").isLength({ min: 6 })
+    check("password", "Please enter a password 6 or more characters").isLength({
+      min: 6
+    })
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -62,10 +66,15 @@ router.post(
         }
       };
 
-      jwt.sign(payload, config.get("jwtToken"), { expiresIn: 36000 }, (err, token) => {
-        if (err) throw err;
-        res.json({ token });
-      });
+      jwt.sign(
+        payload,
+        config.get("jwtToken"),
+        { expiresIn: 36000 },
+        (err, token) => {
+          if (err) throw err;
+          res.json({ token });
+        }
+      );
     } catch (err) {
       console.log(err);
       res.status(500).send("server error");

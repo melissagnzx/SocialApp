@@ -7,6 +7,8 @@ const Post = require("../../models/Post");
 const Profile = require("../../models/Profile");
 const User = require("../../models/User");
 
+//Handle a post's routes
+
 // @route    POST api/posts
 // @desc     Create a post
 // @access   Private

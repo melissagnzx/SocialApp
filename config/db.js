@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const config = require("config");
 const db = config.get("mongoURI");
-
+//connect db
 mongoose.connect(db, {
   useNewUrlParser: true,
   useCreateIndex: true,
@@ -9,6 +9,7 @@ mongoose.connect(db, {
   useUnifiedTopology: true
 });
 
+//handle db connection
 const connectDB = async () => {
   try {
     await mongoose.connect(db);
